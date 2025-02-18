@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Gradio GLB Viewer</title>
+		<style>
+			html, body {
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			#modelViewer {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+			}
+		</style>
+		<script type="importmap">
+		{
+		    "imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/"
+		    }
+		}
+		</script>
+
+	</head>
+	<body>
+		<div id="modelViewer">	
+		</div>
+		<script type="module" src="main.js"></script>
+		<script>
+			// Listen for messages from Gradio
+			window.addEventListener("message", (event) => {
+				if (event.data.action) {
+					window.viewerHandleCommand(event.data);
+				}
+			}, false);
+		</script>
+	</body>
+</html>
