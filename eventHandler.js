@@ -1,5 +1,5 @@
 import { camera, renderer } from "./sceneSetup.js";
-import { loadModel, removeModel, mixer, currentGltf } from "./modelLoader.js";
+import { loadModel, removeModel, mixer, currentGltf, currentModel } from "./modelLoader.js";
 
 const container = document.getElementById( 'modelViewer' );
 
@@ -8,22 +8,26 @@ export function setupEventHandlers() {
     window.addEventListener("message", (event) => {
         switch (event.data.action) {
             case "loadModel":
-                loadModel(event.data.modelUrl);
+                loadModel(event.data.modelUrl).then(() => {
+                    window.dispatchEvent(new Event("modelLoaded"));
+                }).catch((error) => {
+                    console.error("Error loading model:", error);
+                });
                 break;
             case "setPlaybackSpeed":
                 setPlaybackSpeed(event.data.speed);
                 break;
             case "setAnimationFrame":
-                setAnimationFrame(event.data.frame);
+                waitForModel().then(setAnimationFrame(event.data.frame));
                 break;
             case "toggleAnimation":
-                toggleAnimation();
+                waitForModel().then(toggleAnimation());
                 break;
             case "playAnimation":
-                playAnimation();
+                waitForModel().then(playAnimation());
                 break;
             case "pauseAnimation":
-                pauseAnimation();
+                waitForModel().then(pauseAnimation());
                 break;
             case "removeModel":
                 removeModel();
@@ -31,6 +35,8 @@ export function setupEventHandlers() {
             case "setExposure":
                 setExposure(event.data.exposure);
                 break;
+            default:
+                console.error("Unknown action:", event.data.action);
         }
     }, false);
 
@@ -38,6 +44,17 @@ export function setupEventHandlers() {
         camera.aspect = container.clientWidth / container.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize( container.clientWidth, container.clientHeight );
+    });
+}
+
+function waitForModel() {
+    return new Promise((resolve) => {
+        if (currentModel) {
+            resolve();
+            return;
+        }
+
+        window.addEventListener("modelLoaded", () => resolve(), { once: true });
     });
 }
 
