@@ -29,7 +29,7 @@ export function loadModel(modelUrl) {
         if (gltf.animations.length > 0) {
             mixer = new THREE.AnimationMixer(currentModel);
             const action = mixer.clipAction(gltf.animations[0]);
-            action.play();  
+            action.play();
         }
     },
     function ( xhr ) {

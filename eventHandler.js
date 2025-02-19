@@ -41,7 +41,7 @@ export function setupEventHandlers() {
     });
 }
 
-function toggleAnimation() {
+export function toggleAnimation() {
     if (mixer && mixer.clipAction) {
         const action = mixer.clipAction(currentGltf.animations[0]);
         action.paused = !action.paused;
@@ -66,19 +66,19 @@ function pauseAnimation() {
     }
 }
 
-function setPlaybackSpeed(speed) {
+export function setPlaybackSpeed(speed) {
     if (mixer && mixer.clipAction) {
         const action = mixer.clipAction(currentGltf.animations[0]);
         action.timeScale = speed;
     }
 }
 
-function setAnimationFrame(frame) {
+export function setAnimationFrame(frame) {
     if (mixer) {
         mixer.setTime(frame / 60);
     }
 }
 
-function setExposure(value) {
+export function setExposure(value) {
     renderer.toneMappingExposure = value;
 }
