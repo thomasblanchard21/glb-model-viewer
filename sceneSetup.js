@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { InfiniteGridHelper } from "./infiniteGrid.js";
 import { updateAnimation } from './modelLoader.js';
-import Stats from 'three/examples/jsm/libs/stats.module'
+import Stats from 'three/addons/libs/stats.module.js'
 
 const container = document.getElementById( 'modelViewer' );
 const stats = Stats()

@@ -1,7 +1,8 @@
-import { camera } from "./sceneSetup";
-import { setPlaybackSpeed, setAnimationFrame, toggleAnimation, setExposure } from "./eventHandler";
+import { camera } from "./sceneSetup.js";
+import { setPlaybackSpeed, setAnimationFrame, toggleAnimation, setExposure } from "./eventHandler.js";
+import { GUI } from "https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.module.js";
 
-export const gui = new dat.GUI();
+export const gui = new GUI();
 const cameraFolder = gui.addFolder('Camera');
 cameraFolder.add(camera.position, 'x', -10, 10);
 cameraFolder.add(camera.position, 'y', -10, 10);
