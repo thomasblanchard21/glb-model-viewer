@@ -30,13 +30,5 @@
 		<div id="modelViewer">	
 		</div>
 		<script type="module" src="main.js"></script>
-		<script>
-			// Listen for messages from Gradio
-			window.addEventListener("message", (event) => {
-				if (event.data.action) {
-					window.viewerHandleCommand(event.data);
-				}
-			}, false);
-		</script>
 	</body>
 </html>
