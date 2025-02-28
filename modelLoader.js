@@ -1,12 +1,12 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { scene } from "./sceneSetup.js";
+import { scene, camera, renderer } from "./sceneSetup.js";
 
 export let mixer = null;
 export let currentGltf = null;
 export let currentModel = null;
 
-export async function loadModel(modelUrl) {
+export function loadModel(modelUrl) {
     return new Promise((resolve, reject) => {
         if (!modelUrl) {
             reject("No model URL provided");
@@ -36,9 +36,9 @@ export async function loadModel(modelUrl) {
         console.log("Before:", scene.children);
 
         const loader = new GLTFLoader(loadingManager);
-        loader.load(modelUrl, (gltf) => {
+        loader.load(modelUrl, async function (gltf) {
             currentGltf = gltf;
-            let model = gltf.scene;
+            const model = gltf.scene;
             model.traverse((node) => {
                 if (node.isMesh) {
                     node.castShadow = true;
@@ -47,6 +47,7 @@ export async function loadModel(modelUrl) {
             });
 
             currentModel = model;
+            await renderer.compileAsync( model, camera, scene );
             scene.add(model);
 
             if (gltf.animations.length > 0) {
@@ -57,7 +58,7 @@ export async function loadModel(modelUrl) {
 
             console.log("After:", scene.children);
 
-            resolve(model);
+            resolve();
         },
         function ( xhr ) {
 
