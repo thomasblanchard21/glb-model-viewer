@@ -1,16 +1,12 @@
 import { camera, renderer } from "./sceneSetup.js";
-import { loadModel, removeModel, mixer, currentGltf, currentModel } from "./modelLoader.js";
+import { loadModel, mixer, currentGltf } from "./modelLoader.js";
 
 const container = document.getElementById( 'modelViewer' );
 
 export function setupEventHandlers() {
 
     window.addEventListener("message", (event) => {
-        console.log("Received event:", event);
-        console.log("Data:", event.data);
-        console.log("Origin:", event.origin);
-        console.log("Source:", event.source);
-        console.log("Action:", event.data.action);
+        console.log("Received event:", event.data);
         switch (event.data.action) {
             case "loadModel":
                 loadModel(event.data.modelUrl).then(() => {
@@ -34,9 +30,6 @@ export function setupEventHandlers() {
             case "pauseAnimation":
                 waitForModel().then(pauseAnimation());
                 break;
-            case "removeModel":
-                removeModel();
-                break;
             case "setExposure":
                 setExposure(event.data.exposure);
                 break;
@@ -49,17 +42,6 @@ export function setupEventHandlers() {
         camera.aspect = container.clientWidth / container.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize( container.clientWidth, container.clientHeight );
-    });
-}
-
-function waitForModel() {
-    return new Promise((resolve) => {
-        if (currentModel) {
-            resolve();
-            return;
-        }
-
-        window.addEventListener("modelLoaded", () => resolve(), { once: true });
     });
 }
 
