@@ -19,16 +19,16 @@ export function setupEventHandlers() {
                 setPlaybackSpeed(event.data.speed);
                 break;
             case "setAnimationFrame":
-                waitForModel().then(setAnimationFrame(event.data.frame));
+                setAnimationFrame(event.data.frame);
                 break;
             case "toggleAnimation":
-                waitForModel().then(toggleAnimation());
+                toggleAnimation();
                 break;
             case "playAnimation":
-                waitForModel().then(playAnimation());
+                playAnimation();
                 break;
             case "pauseAnimation":
-                waitForModel().then(pauseAnimation());
+                pauseAnimation();
                 break;
             case "setExposure":
                 setExposure(event.data.exposure);
