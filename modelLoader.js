@@ -6,7 +6,7 @@ export let mixer = null;
 export let currentGltf = null;
 export let currentModel = null;
 
-export function loadModel(modelUrl) {
+export async function loadModel(modelUrl) {
     return new Promise((resolve, reject) => {
         if (!modelUrl) {
             reject("No model URL provided");
@@ -15,8 +15,25 @@ export function loadModel(modelUrl) {
 
         removeModel();
 
-        console.log("Loading model: ", modelUrl);
-        const loader = new GLTFLoader();
+        const loadingManager = new THREE.LoadingManager();
+
+        loadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+            console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+        }
+
+        loadingManager.onLoad = function ( ) {
+            console.log( 'Loading complete!');
+        }
+
+        loadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+            console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+        }
+
+        loadingManager.onError = function ( url ) {
+            console.log( 'There was an error loading ' + url );
+        }
+
+        const loader = new GLTFLoader(loadingManager);
         loader.load(modelUrl, (gltf) => {
             currentGltf = gltf;
             let model = gltf.scene;
