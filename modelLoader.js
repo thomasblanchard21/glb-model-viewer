@@ -33,6 +33,8 @@ export async function loadModel(modelUrl) {
             console.log( 'There was an error loading ' + url );
         }
 
+        console.log("Before:", scene.children);
+
         const loader = new GLTFLoader(loadingManager);
         loader.load(modelUrl, (gltf) => {
             currentGltf = gltf;
@@ -52,6 +54,8 @@ export async function loadModel(modelUrl) {
                 const action = mixer.clipAction(gltf.animations[0]);
                 action.play();
             }
+
+            console.log("After:", scene.children);
 
             resolve(model);
         },
