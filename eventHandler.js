@@ -6,6 +6,11 @@ const container = document.getElementById( 'modelViewer' );
 export function setupEventHandlers() {
 
     window.addEventListener("message", (event) => {
+        console.log("Received event:", event);
+        console.log("Data:", event.data);
+        console.log("Origin:", event.origin);
+        console.log("Source:", event.source);
+        console.log("Action:", event.data.action);
         switch (event.data.action) {
             case "loadModel":
                 loadModel(event.data.modelUrl).then(() => {

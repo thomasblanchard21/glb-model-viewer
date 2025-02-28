@@ -15,6 +15,7 @@ export function loadModel(modelUrl) {
 
         removeModel();
 
+        console.log("Loading model: ", modelUrl);
         const loader = new GLTFLoader();
         loader.load(modelUrl, (gltf) => {
             currentGltf = gltf;
