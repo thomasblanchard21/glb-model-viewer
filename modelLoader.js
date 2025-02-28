@@ -47,7 +47,7 @@ export function loadModel(modelUrl) {
             });
 
             currentModel = model;
-            await renderer.compileAsync( model, camera, scene );
+            await renderer.compile( model, camera, scene );
             scene.add(model);
 
             if (gltf.animations.length > 0) {
