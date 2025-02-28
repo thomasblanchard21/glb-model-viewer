@@ -10,7 +10,7 @@ export function setupEventHandlers() {
         switch (event.data.action) {
             case "loadModel":
                 loadModel(event.data.modelUrl).then(() => {
-                    window.dispatchEvent(new Event("modelLoaded"));
+                    window.parent.postMessage({ status: "modelLoaded" }, "*");
                 }).catch((error) => {
                     console.error("Error loading model:", error);
                 });
