@@ -7,6 +7,6 @@ setupEventHandlers();
 
 const url = new URL(window.location.href);
 const model = url.searchParams.get("model");
-loadModel(`https://gradio-model-viewer.s3.eu-west-1.amazonaws.com/models/${model}.glb`);
+if (model) loadModel(`https://gradio-model-viewer.s3.eu-west-1.amazonaws.com/models/${model}.glb`);
 
 animate();
