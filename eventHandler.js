@@ -8,13 +8,13 @@ export function setupEventHandlers() {
     window.addEventListener("message", (event) => {
         console.log("Received event:", event.data);
         switch (event.data.action) {
-            case "loadModel":
-                loadModel(event.data.modelUrl).then(() => {
-                    window.parent.postMessage({ status: "modelLoaded" }, "*");
-                }, (error) => {
-                    console.error("Error loading model:", error);
-                });
-                break;
+            // case "loadModel":
+            //     loadModel(event.data.modelUrl).then(() => {
+            //         window.parent.postMessage({ status: "modelLoaded" }, "*");
+            //     }, (error) => {
+            //         console.error("Error loading model:", error);
+            //     });
+            //     break;
             case "setPlaybackSpeed":
                 setPlaybackSpeed(event.data.speed);
                 break;

@@ -32,8 +32,6 @@ export function loadModel(modelUrl) {
         console.log('There was an error loading ' + url);
     }
 
-    console.log("Before:", scene.children);
-
     const loader = new GLTFLoader(loadingManager);
     loader.load(modelUrl, (gltf) => {
         currentGltf = gltf;
@@ -54,7 +52,7 @@ export function loadModel(modelUrl) {
             action.play();
         }
 
-        console.log("After:", scene.children);
+        window.parent.postMessage({ status: "modelLoaded" }, "*");
     },
     function (xhr) {
         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
