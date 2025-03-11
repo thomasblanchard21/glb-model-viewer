@@ -2,10 +2,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { InfiniteGridHelper } from "./infiniteGrid.js";
 import { updateAnimation } from './modelLoader.js';
-import Stats from 'three/addons/libs/stats.module.js'
 
 const container = document.getElementById( 'modelViewer' );
-const stats = Stats()
 
 export const scene = new THREE.Scene();
 export const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 100);
@@ -13,7 +11,6 @@ export const renderer = new THREE.WebGLRenderer({ antialias: true });
 export const controls = new OrbitControls(camera, renderer.domElement);
 
 export function initScene() {
-    document.body.appendChild(stats.dom)
     
     window.viewerState = {
         paused: false,

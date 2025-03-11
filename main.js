@@ -6,7 +6,8 @@ initScene();
 setupEventHandlers();
 
 const url = new URL(window.location.href);
+const video = url.searchParams.get("video");
 const model = url.searchParams.get("model");
-if (model) loadModel(`https://gradio-model-viewer.s3.eu-west-1.amazonaws.com/models/${model}.glb`);
+if (model) loadModel(`https://huggingface.co/datasets/kinetix-testing/SMPL_arena_data/resolve/main/models/${model}/${video}.glb`);
 
 animate();
