@@ -67,5 +67,4 @@ export function animate() {
 
     controls.update();  
     renderer.render( scene, camera );
-    stats.update();
 }
